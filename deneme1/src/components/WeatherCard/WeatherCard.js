@@ -43,7 +43,7 @@ export default function WeatherCard() {
                           <Card>
                             <CardActions>
                               <GridItem xs={12} sm={12} md={12}>
-                                <h3>Hava Durumu</h3>
+                           
                                 <WeatherCardHelper weather={weather}/>
                               </GridItem>
                             </CardActions>
