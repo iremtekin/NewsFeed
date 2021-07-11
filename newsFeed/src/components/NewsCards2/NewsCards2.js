@@ -1,48 +1,42 @@
 import React, { useEffect, useState } from "react";
 import {  QueryClient, QueryClientProvider } from 'react-query';
 import {
-  CardActions, CardMedia, Link
+  Card, CardActionArea,
+  CardActions, CardContent, CardMedia, Link, Typography
 } from "@material-ui/core";
 import GridContainer from "../Grid/GridContainer";
 import GridItem from "../Grid/GridItem";
-import Card from "../Card/Card";
-import CardHeader from "../Card/CardHeader";
-import CardBody from "../Card/CardBody";
+//import Card from "../Card/Card";
+//import CardHeader from "../Card/CardHeader";
+//import CardBody from "../Card/CardBody";
 const queryClient = new QueryClient();
 
 //This is a data table component
 //It fetches the data from given API
 
-const NewsCardsHelp = () => {
+const NewsCardsHelp = (props) => {
 
   const [data, setTableData] = useState([])
 
   var data2 = {};
 
-  var data3 = "";
-
   var titles = [];
+
+  // eslint-disable-next-line react/prop-types
+  var category = props.category.category;
 
 
   //fetches data once ([] is used so that it doesn't make endless calls to API)
  useEffect(() => {
-    fetch("https://api.yaani.com.tr/engine/experts/web-search/cnzpxc/v1/cnews?Req=c366afbc-8dec-4fab-8308-d836f174def6&ApiKey=l0iy-8y7v-1tur&Lang=tr&Limit=10&Offset=0&cat=top&0yaani=true")
+    fetch('https://api.yaani.com.tr/engine/experts/web-search/cnzpxc/v1/cnews?Req=c366afbc-8dec-4fab-8308-d836f174def6&ApiKey=l0iy-8y7v-1tur&Lang=tr&Limit=10&Offset=0&cat=top&0yaani=true&category=' + category)
       .then((data) => data.json())
       .then((data) => setTableData(data))
-  },[]);
+  },[category]);
 
 
    try {
      data2 = data.advice.results
-     console.log(data2.length)
 
-     for(var i = 0; i < data2.length; i++)
-     {
-       console.log(titles[i]);
-     }
-
-     data2.map((row) => (data3 = row.displayUrl,
-       console.log(data3)))
    } catch (error) {
      console.log(error)
 
@@ -51,30 +45,30 @@ const NewsCardsHelp = () => {
   for(var y = 0; y < data2.length;y++)
   {
     const cardImage = "https://api.yaani.com.tr/prx/" + data2[y].thumbnail
-    titles.push(<Card>
-      <CardHeader color="warning" stats>
-        {data2[y].title}
-      </CardHeader>
-      <CardBody>
-        <CardMedia
-          image= {cardImage}
-          title="Paella dish"
-        />
-        <div>
-          <img height={150} width={220} src={cardImage}/>
-        </div>
-        <div>
-          {data2[y].summary}
-        </div>
-        <div>
-          <Link href={data2[y].url} >
-            Habere gitmek için tıklayın
-          </Link>
-        </div>
-        <div>
+    titles.push(<Card style={{marginBottom: '30px'}}>
+      <CardActionArea>
+        <CardMedia>
+          <div>
+           <img height={160} width={230} src={cardImage}/>
+          </div>
+        </CardMedia>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {data2[y].title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {data2[y].summary}
+          </Typography>
+          <div>
+            <Link href={data2[y].url} >
+              Habere gitmek için tıklayın
+            </Link>
+          </div>
+          <div>
             <p align={"left"}>{data2[y].displayUrl} | {data2[y].pubDate}</p>
-        </div>
-      </CardBody>
+          </div>
+        </CardContent>
+      </CardActionArea>
       </Card>)
   }
 
@@ -95,9 +89,9 @@ const NewsCardsHelp = () => {
   );
 }
 
-export default function NewsCards(){
+export default function NewsCards(props){
   return(<QueryClientProvider client={queryClient}>
-      <NewsCardsHelp />
+      <NewsCardsHelp category={props}/>
     </QueryClientProvider>
   );
 

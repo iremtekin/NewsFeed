@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import logo from "assets/img/openWeather_lg.png"
 
 const WeatherCardHelper = (props) => {
   // eslint-disable-next-line react/prop-types
@@ -10,9 +11,8 @@ const WeatherCardHelper = (props) => {
     root: {
       textAlign: 'left',
     },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'left',
+    logo: {
+      alignItems: 'right',
       color: theme.palette.text.secondary,
     },
   }));
@@ -77,7 +77,9 @@ const WeatherCardHelper = (props) => {
           {/* eslint-disable-next-line react/prop-types */}
           <p>Nem: {weather.main.humidity} %  |  Rüzgar: {Math.round((weather.wind.speed)*(3.6))} km/h</p>
         </Grid>
-
+          <Grid item xs={12}>
+            <img height={24} width={57} src={logo}/>
+          </Grid>
       </Grid>
     </div>
   );

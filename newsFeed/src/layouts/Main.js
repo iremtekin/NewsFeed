@@ -1,12 +1,14 @@
 import React from "react";
-import BlockedContents from "../views/BlockedContents/BlockedContents";
 import WeatherCard from "../components/WeatherCard/WeatherCard";
+import CurrencyCard from "../components/CurrencyCard/CurrencyCard";
+import NewsFeed from "../views/NewsFeed/NewsFeed";
 
 export default function Main() {
   return (
     <div>
       <WeatherCard/>
-      <BlockedContents/>
+      <CurrencyCard/>
+      <NewsFeed/>
     </div>
   );
 }

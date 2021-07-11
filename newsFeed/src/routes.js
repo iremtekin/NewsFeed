@@ -1,6 +1,6 @@
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import BlockingContent from "views/BlockingContent/BlockingContent.js";
-import BlockedContents from "./views/BlockedContents/BlockedContents";
+import BlockedContents from "./views/NewsFeed/NewsFeed";
 
 
 const dashboardRoutes = [
